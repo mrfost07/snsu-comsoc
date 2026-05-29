@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Browse all events from SNSU Computer Society — workshops, hackathons, and seminars.">
+  <meta name="description" content="Events of the SNSU Computer Society — A.Y. 2025–2026.">
   <meta name="theme-color" content="#000000">
   <title>Events — SNSU Computer Society</title>
 
@@ -13,17 +13,12 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
-    /* ── FEATURED ─────────────────────────────────── */
     .featured{
-      display:grid;
-      grid-template-columns:1.2fr 1fr;
+      display:grid;grid-template-columns:1.2fr 1fr;
       gap:96px;align-items:center;
     }
     .featured-photo{
-      position:relative;
-      aspect-ratio:5/4;
-      overflow:hidden;
-      background:var(--gray-1);
+      position:relative;aspect-ratio:5/4;overflow:hidden;background:var(--gray-1);
     }
     .featured-photo img{
       width:100%;height:100%;object-fit:cover;
@@ -31,203 +26,98 @@
       transition:filter .5s var(--ease),transform .5s var(--ease);
     }
     .featured-photo:hover img{filter:grayscale(0);transform:scale(1.02)}
-
     .featured-tag{
-      display:inline-block;
-      padding:8px 16px;
-      font-size:11px;font-weight:700;
-      letter-spacing:.24em;text-transform:uppercase;
-      background:var(--orange);
-      color:var(--white);
-      margin-bottom:24px;
+      display:inline-block;padding:8px 16px;
+      font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+      background:var(--orange);color:var(--white);margin-bottom:24px;
     }
     .featured h2{
-      font-size:clamp(48px,7vw,96px);
-      font-weight:700;
-      letter-spacing:-.04em;
-      line-height:.92;
-      text-transform:uppercase;
-      margin-bottom:24px;
+      font-size:clamp(40px,6vw,80px);font-weight:700;
+      letter-spacing:-.04em;line-height:.92;text-transform:uppercase;margin-bottom:24px;
     }
     .featured h2 em{font-style:normal;color:var(--orange)}
     .featured-meta{
       display:flex;flex-direction:column;gap:14px;
-      padding:24px 0;
-      border-top:1px solid var(--gray-2);
-      border-bottom:1px solid var(--gray-2);
+      padding:24px 0;border-top:1px solid var(--gray-2);border-bottom:1px solid var(--gray-2);
       margin-bottom:32px;
     }
     .featured-meta span{
-      font-size:13px;
-      letter-spacing:.16em;text-transform:uppercase;
-      display:inline-flex;align-items:center;gap:14px;
-      color:var(--gray-4);
+      font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+      display:inline-flex;gap:14px;color:var(--gray-4);
     }
-    .featured-meta strong{
-      font-weight:700;color:var(--black);
-      min-width:90px;display:inline-block;
-    }
-    .featured p.desc{
-      font-size:16px;line-height:1.7;
-      color:var(--gray-4);
-      margin-bottom:32px;
-    }
+    .featured-meta strong{font-weight:700;color:var(--black);min-width:90px;display:inline-block}
+    .featured p.desc{font-size:16px;line-height:1.7;color:var(--gray-4);margin-bottom:0}
 
-    /* ── LIST + FILTERS ───────────────────────────── */
-    .list-section{
-      background:var(--black);
-      color:var(--white);
-      padding:var(--s-11) 0;
-    }
+    .list-section{background:var(--black);color:var(--white);padding:var(--s-11) 0}
     .list-section .h2{color:var(--white)}
-
     .filters-row{
-      display:flex;align-items:center;justify-content:space-between;
-      flex-wrap:wrap;gap:24px;
-      padding-bottom:24px;
-      border-bottom:1px solid rgba(255,255,255,.18);
-      margin-bottom:48px;
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;
+      padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.18);margin-bottom:48px;
     }
     .filters{display:flex;gap:32px}
     .filter-btn{
-      font-family:var(--font);
-      font-size:12px;font-weight:700;
-      letter-spacing:.24em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.5);
-      padding:6px 0;
-      border:none;background:none;
-      cursor:pointer;
-      transition:color .2s var(--ease);
-      position:relative;
+      font-family:var(--font);font-size:12px;font-weight:700;
+      letter-spacing:.24em;text-transform:uppercase;
+      color:rgba(255,255,255,.5);padding:6px 0;border:none;background:none;cursor:pointer;
+      transition:color .2s var(--ease);position:relative;
     }
     .filter-btn:hover{color:var(--white)}
     .filter-btn.active{color:var(--orange)}
-    .filter-btn.active::after{
-      content:'';position:absolute;
-      left:0;right:0;bottom:-4px;height:1px;
-      background:var(--orange);
-    }
-    .filters-count{
-      font-size:11px;font-weight:700;
-      letter-spacing:.24em;text-transform:uppercase;
-      color:rgba(255,255,255,.4);
-    }
+    .filter-btn.active::after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--orange)}
+    .filters-count{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.4)}
 
     .ev-list{display:flex;flex-direction:column}
     .ev-row{
-      display:grid;
-      grid-template-columns:120px 1fr 220px 140px;
-      gap:48px;
-      padding:36px 0;
-      border-bottom:1px solid rgba(255,255,255,.12);
-      align-items:center;
+      display:grid;grid-template-columns:130px 1fr 200px 140px;gap:48px;
+      padding:36px 0;border-bottom:1px solid rgba(255,255,255,.12);align-items:center;
       transition:padding .25s var(--ease);
     }
     .ev-row:hover{padding-left:16px}
     .ev-row.hidden{display:none}
-
-    .ev-row-date{
-      font-family:var(--font);
-      font-weight:700;
-    }
-    .ev-row-day{
-      font-size:42px;line-height:.9;
-      color:var(--white);
-      letter-spacing:-.03em;
-    }
-    .ev-row[data-status="past"] .ev-row-day{color:rgba(255,255,255,.35)}
-    .ev-row-month{
-      font-size:11px;
-      letter-spacing:.24em;text-transform:uppercase;
-      color:var(--orange);
-      margin-top:8px;
-    }
+    .ev-row-date{font-family:var(--font);font-weight:700}
+    .ev-row-day{font-size:38px;line-height:.9;color:var(--white);letter-spacing:-.03em}
+    .ev-row[data-status="past"] .ev-row-day{color:rgba(255,255,255,.4)}
+    .ev-row-month{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-top:8px}
     .ev-row[data-status="past"] .ev-row-month{color:rgba(255,255,255,.35)}
-
-    .ev-row h3{
-      font-size:24px;font-weight:700;
-      letter-spacing:-.01em;
-      text-transform:uppercase;
-      margin-bottom:8px;
-      color:var(--white);
-    }
-    .ev-row[data-status="past"] h3{color:rgba(255,255,255,.6)}
-    .ev-row-cat{
-      display:inline-block;
-      font-size:10px;font-weight:700;
-      letter-spacing:.24em;text-transform:uppercase;
-      color:var(--orange);
-      margin-bottom:8px;
-    }
+    .ev-row h3{font-size:23px;font-weight:700;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:8px;color:var(--white)}
+    .ev-row[data-status="past"] h3{color:rgba(255,255,255,.65)}
+    .ev-row-cat{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
     .ev-row[data-status="past"] .ev-row-cat{color:rgba(255,255,255,.4)}
-    .ev-row-desc{
-      font-size:13px;line-height:1.6;
-      color:rgba(255,255,255,.55);
-    }
-    .ev-row-loc{
-      font-size:12px;
-      letter-spacing:.18em;text-transform:uppercase;
-      color:rgba(255,255,255,.55);
-    }
-    .ev-row-status{
-      font-size:10px;font-weight:700;
-      letter-spacing:.24em;text-transform:uppercase;
-      padding:8px 14px;
-      text-align:center;
-    }
-    .ev-row-status.upcoming{
-      background:var(--orange);color:var(--white);
-    }
-    .ev-row-status.done{
-      border:1px solid rgba(255,255,255,.18);
-      color:rgba(255,255,255,.4);
-    }
+    .ev-row-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,.55)}
+    .ev-row-loc{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+    .ev-row-status{font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;padding:8px 14px;text-align:center}
+    .ev-row-status.upcoming{background:var(--orange);color:var(--white)}
+    .ev-row-status.done{border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.4)}
 
-    /* ── TIMELINE ─────────────────────────────────── */
-    .timeline-section{padding:var(--s-11) 0;background:var(--white)}
-    .timeline{
-      max-width:880px;margin:0 auto;
-      padding-left:32px;
-      border-left:1px solid var(--gray-2);
+    .gallery-section{padding:var(--s-11) 0;background:var(--white)}
+    .gallery-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+      border-top:1px solid var(--gray-2);border-left:1px solid var(--gray-2);
     }
-    .tl-item{
-      position:relative;
-      padding-bottom:64px;
-      padding-left:48px;
+    .gallery-item{
+      position:relative;aspect-ratio:4/3;overflow:hidden;
+      border-right:1px solid var(--gray-2);border-bottom:1px solid var(--gray-2);
     }
-    .tl-item:last-child{padding-bottom:0}
-    .tl-item::before{
-      content:'';position:absolute;
-      left:-37px;top:8px;
-      width:11px;height:11px;
-      background:var(--orange);
+    .gallery-item img{width:100%;height:100%;object-fit:cover;filter:grayscale(1);transition:filter .5s var(--ease),transform .5s var(--ease)}
+    .gallery-item:hover img{filter:grayscale(0);transform:scale(1.05)}
+    .gallery-item::after{
+      content:attr(data-label);position:absolute;left:0;bottom:0;
+      padding:10px 16px;background:var(--orange);color:var(--white);
+      font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+      opacity:0;transform:translateY(8px);transition:all .3s var(--ease);
     }
-    .tl-date{
-      font-size:11px;font-weight:700;
-      letter-spacing:.24em;text-transform:uppercase;
-      color:var(--orange);
-      margin-bottom:12px;
-    }
-    .tl-content h4{
-      font-size:24px;font-weight:700;
-      letter-spacing:-.01em;
-      text-transform:uppercase;
-      margin-bottom:10px;
-    }
-    .tl-content p{
-      font-size:14px;line-height:1.7;
-      color:var(--gray-4);
-    }
+    .gallery-item:hover::after{opacity:1;transform:none}
 
     @media(max-width:1024px){
       .featured{grid-template-columns:1fr;gap:48px}
       .ev-row{grid-template-columns:80px 1fr;gap:24px;padding:28px 0}
       .ev-row-loc,.ev-row-status{grid-column:2;justify-self:start}
-      .ev-row-day{font-size:32px}
+      .ev-row-day{font-size:30px}
+      .gallery-grid{grid-template-columns:repeat(2,1fr)}
     }
     @media(max-width:600px){
       .filters-row{flex-direction:column;align-items:flex-start;gap:16px}
+      .gallery-grid{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -256,18 +146,16 @@
   <!-- ─── PAGE HERO ─── -->
   <section class="page-hero">
     <div class="page-hero-photo" aria-hidden="true">
-      <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1600&q=80" alt="">
+      <img src="images/events/event-1.jpg" alt="">
     </div>
     <div class="container">
       <div class="page-hero-meta">
-        <div>
-          <a href="index.html">Home</a> · <span style="color:rgba(255,255,255,.5)">Events</span>
-        </div>
-        <span>2025–2026</span>
+        <div><a href="index.html">Home</a> · <span style="color:rgba(255,255,255,.5)">Events</span></div>
+        <span>A.Y. 2025–2026</span>
       </div>
       <div class="page-hero-inner">
         <h1 class="reveal"><em>Events</em>.</h1>
-        <p class="page-hero-desc reveal">Workshops, competitions, summits, and gatherings — every month, year-round, all designed to push you forward.</p>
+        <p class="page-hero-desc reveal">Assemblies, ceremonies, and university-wide activities that brought Comsocians together this academic year.</p>
       </div>
     </div>
   </section>
@@ -279,35 +167,30 @@
         <p class="eyebrow">Spotlight</p>
         <h2 class="h2">Featured <em>event</em>.</h2>
       </div>
-
       <div class="featured">
         <div class="featured-photo reveal-l">
-          <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&q=80" alt="Hackathon 2026">
+          <img src="images/events/event-2.jpg" alt="Kickstart 2026: Padayon!">
         </div>
         <div class="reveal-r">
-          <span class="featured-tag">Registration open</span>
-          <h2>Hackathon <em>2026</em></h2>
+          <span class="featured-tag">Recently held</span>
+          <h2>Kickstart <em>2026</em></h2>
           <div class="featured-meta">
-            <span><strong>Date</strong> June 15–17, 2026</span>
-            <span><strong>Where</strong> SNSU Main Campus</span>
-            <span><strong>Length</strong> 48 hours</span>
+            <span><strong>Date</strong> January 26, 2026</span>
+            <span><strong>Where</strong> SNSU Gymnasium</span>
+            <span><strong>Theme</strong> Padayon!</span>
           </div>
-          <p class="desc">A 48-hour coding marathon where teams build innovative solutions to real-world challenges. Open to all SNSU students — bring your team, your ideas, and your laptop.</p>
-          <a href="#" class="btn btn-orange">
-            Register now
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-          </a>
+          <p class="desc">SNSU formally opened the Second Semester of A.Y. 2025–2026 with a campus-wide activity emphasizing unity, renewed commitment, and a shared vision for progress. Student organizations joined a spirited yell competition, where teamwork, creativity, and organizational pride were prominently displayed. Padayon SNSU, Padayon Comsocians!</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ─── LIST ─── -->
+  <!-- ─── EVENT LIST ─── -->
   <section class="list-section">
     <div class="container">
       <div class="section-head reveal" style="margin-bottom:64px">
         <p class="eyebrow eyebrow-light">All events</p>
-        <h2 class="h2">Browse the <em>schedule</em>.</h2>
+        <h2 class="h2">The <em>schedule</em>.</h2>
       </div>
 
       <div class="filters-row reveal">
@@ -316,105 +199,94 @@
           <button class="filter-btn" data-filter="upcoming" role="tab">Upcoming</button>
           <button class="filter-btn" data-filter="past" role="tab">Past</button>
         </div>
-        <span class="filters-count">7 events</span>
+        <span class="filters-count">A.Y. 2025–2026</span>
       </div>
 
       <div class="ev-list">
         <article class="ev-row reveal" data-status="upcoming">
-          <div class="ev-row-date"><p class="ev-row-day">15</p><p class="ev-row-month">Jun 2026</p></div>
+          <div class="ev-row-date"><p class="ev-row-day">26</p><p class="ev-row-month">Jan 2026</p></div>
           <div>
-            <p class="ev-row-cat">Competition</p>
-            <h3>Hackathon 2026</h3>
-            <p class="ev-row-desc">A 48-hour coding marathon where teams build innovative solutions.</p>
+            <p class="ev-row-cat">University Activity</p>
+            <h3>Kickstart 2026: Padayon!</h3>
+            <p class="ev-row-desc">Campus-wide opening of the Second Semester with a yell competition featuring student organizations.</p>
           </div>
-          <p class="ev-row-loc">SNSU Main Campus</p>
-          <span class="ev-row-status upcoming">Upcoming</span>
-        </article>
-
-        <article class="ev-row reveal" data-status="upcoming">
-          <div class="ev-row-date"><p class="ev-row-day">20</p><p class="ev-row-month">Jul 2026</p></div>
-          <div>
-            <p class="ev-row-cat">Seminar</p>
-            <h3>Tech Summit 2026</h3>
-            <p class="ev-row-desc">A full-day summit with keynote speakers, panels, and networking.</p>
-          </div>
-          <p class="ev-row-loc">SNSU Auditorium</p>
-          <span class="ev-row-status upcoming">Upcoming</span>
-        </article>
-
-        <article class="ev-row reveal" data-status="upcoming">
-          <div class="ev-row-date"><p class="ev-row-day">05</p><p class="ev-row-month">Aug 2026</p></div>
-          <div>
-            <p class="ev-row-cat">Competition</p>
-            <h3>CodeFest Challenge</h3>
-            <p class="ev-row-desc">Competitive programming — solve algorithmic challenges in teams of three.</p>
-          </div>
-          <p class="ev-row-loc">CS Building Lab 3</p>
-          <span class="ev-row-status upcoming">Upcoming</span>
-        </article>
-
-        <article class="ev-row reveal" data-status="upcoming">
-          <div class="ev-row-date"><p class="ev-row-day">18</p><p class="ev-row-month">Aug 2026</p></div>
-          <div>
-            <p class="ev-row-cat">Workshop</p>
-            <h3>Web Dev Workshop</h3>
-            <p class="ev-row-desc">Modern web development with HTML, CSS, JavaScript, and React fundamentals.</p>
-          </div>
-          <p class="ev-row-loc">CS Building Lab 1</p>
-          <span class="ev-row-status upcoming">Upcoming</span>
+          <p class="ev-row-loc">SNSU Gymnasium</p>
+          <span class="ev-row-status upcoming">Recent</span>
         </article>
 
         <article class="ev-row reveal" data-status="past">
-          <div class="ev-row-date"><p class="ev-row-day">12</p><p class="ev-row-month">Mar 2026</p></div>
+          <div class="ev-row-date"><p class="ev-row-day">10</p><p class="ev-row-month">Dec 2025</p></div>
           <div>
-            <p class="ev-row-cat">Seminar</p>
-            <h3>AI &amp; Machine Learning Talk</h3>
-            <p class="ev-row-desc">Industry experts on neural networks, NLP, and computer vision.</p>
+            <p class="ev-row-cat">Assembly</p>
+            <h3>1st General Assembly</h3>
+            <p class="ev-row-desc">Important matters and announcements discussed with members at the Academic Hall. Themed "General Assembly" with a fun Mario motif.</p>
           </div>
-          <p class="ev-row-loc">SNSU Auditorium</p>
+          <p class="ev-row-loc">Academic Hall</p>
           <span class="ev-row-status done">Completed</span>
         </article>
 
         <article class="ev-row reveal" data-status="past">
-          <div class="ev-row-date"><p class="ev-row-day">08</p><p class="ev-row-month">Feb 2026</p></div>
+          <div class="ev-row-date"><p class="ev-row-day">—</p><p class="ev-row-month">2025</p></div>
           <div>
-            <p class="ev-row-cat">Workshop</p>
-            <h3>Game Development Night</h3>
-            <p class="ev-row-desc">Game development using Unity and Godot — 45 participants built mini-games.</p>
+            <p class="ev-row-cat">Ceremony</p>
+            <h3>Flag Raising Ceremony</h3>
+            <p class="ev-row-desc">The Computer Society proudly led the university flag raising ceremony, representing the organization with pride.</p>
           </div>
-          <p class="ev-row-loc">CS Building Lab 2</p>
+          <p class="ev-row-loc">SNSU Gymnasium</p>
           <span class="ev-row-status done">Completed</span>
         </article>
 
         <article class="ev-row reveal" data-status="past">
-          <div class="ev-row-date"><p class="ev-row-day">20</p><p class="ev-row-month">Jan 2026</p></div>
+          <div class="ev-row-date"><p class="ev-row-day">—</p><p class="ev-row-month">2025</p></div>
           <div>
-            <p class="ev-row-cat">Social</p>
-            <h3>Annual General Assembly</h3>
-            <p class="ev-row-desc">Year kick-off — new executive board, achievements review, 2026 roadmap.</p>
+            <p class="ev-row-cat">Organization</p>
+            <h3>Election of Officers</h3>
+            <p class="ev-row-desc">Election of the Computer Society officers for Academic Year 2025–2026.</p>
           </div>
-          <p class="ev-row-loc">SNSU Function Hall</p>
+          <p class="ev-row-loc">CCIS, SNSU</p>
+          <span class="ev-row-status done">Completed</span>
+        </article>
+
+        <article class="ev-row reveal" data-status="past">
+          <div class="ev-row-date"><p class="ev-row-day">—</p><p class="ev-row-month">2025</p></div>
+          <div>
+            <p class="ev-row-cat">Celebration</p>
+            <h3>PAHUGJAW 2025</h3>
+            <p class="ev-row-desc">Organization Day and Teachers' Day Celebration — a day of unity, recognition, and festivity.</p>
+          </div>
+          <p class="ev-row-loc">SNSU Campus</p>
+          <span class="ev-row-status done">Completed</span>
+        </article>
+
+        <article class="ev-row reveal" data-status="past">
+          <div class="ev-row-date"><p class="ev-row-day">—</p><p class="ev-row-month">2025</p></div>
+          <div>
+            <p class="ev-row-cat">Activity</p>
+            <h3>ITE Days</h3>
+            <p class="ev-row-desc">Information Technology Education days — showcasing the talents and skills of CCIS students.</p>
+          </div>
+          <p class="ev-row-loc">CCIS, SNSU</p>
           <span class="ev-row-status done">Completed</span>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ─── TIMELINE ─── -->
-  <section class="timeline-section">
+  <!-- ─── GALLERY ─── -->
+  <section class="gallery-section">
     <div class="container">
       <div class="section-head reveal" style="margin-bottom:64px">
-        <p class="eyebrow">Timeline</p>
-        <h2 class="h2">A look <em>back</em>.</h2>
-        <p class="body-lg">The milestones that shaped our community this year.</p>
+        <p class="eyebrow">Gallery</p>
+        <h2 class="h2">Moments <em>captured</em>.</h2>
+        <p class="body-lg">Highlights from our activities throughout the semester.</p>
       </div>
-
-      <div class="timeline">
-        <div class="tl-item reveal"><p class="tl-date">January 2026</p><div class="tl-content"><h4>Annual General Assembly</h4><p>Kicked off the year with a fresh executive board and roadmap. 120+ attendees.</p></div></div>
-        <div class="tl-item reveal"><p class="tl-date">February 2026</p><div class="tl-content"><h4>Game Development Night</h4><p>First hands-on workshop — 45 participants building mini-games.</p></div></div>
-        <div class="tl-item reveal"><p class="tl-date">March 2026</p><div class="tl-content"><h4>AI &amp; ML Talk</h4><p>Partnered with industry professionals for an in-depth AI/ML seminar.</p></div></div>
-        <div class="tl-item reveal"><p class="tl-date">April 2026</p><div class="tl-content"><h4>Community Outreach</h4><p>Computer literacy program reaching 60 beneficiaries.</p></div></div>
-        <div class="tl-item reveal"><p class="tl-date">June 2026</p><div class="tl-content"><h4>Hackathon 2026</h4><p>Our flagship 48-hour hackathon — the biggest event of the year.</p></div></div>
+      <div class="gallery-grid reveal">
+        <div class="gallery-item" data-label="Kickstart 2026"><img src="images/events/event-1.jpg" alt="Event highlight"></div>
+        <div class="gallery-item" data-label="Padayon!"><img src="images/events/event-2.jpg" alt="Event highlight"></div>
+        <div class="gallery-item" data-label="General Assembly"><img src="images/events/event-3.jpg" alt="Event highlight"></div>
+        <div class="gallery-item" data-label="Flag Raising"><img src="images/events/event-4.jpg" alt="Event highlight"></div>
+        <div class="gallery-item" data-label="PAHUGJAW 2025"><img src="images/events/event-5.jpg" alt="Event highlight"></div>
+        <div class="gallery-item" data-label="ITE Days"><img src="images/events/event-6.jpg" alt="Event highlight"></div>
       </div>
     </div>
   </section>
