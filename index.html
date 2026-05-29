@@ -110,19 +110,21 @@
       color:rgba(255,255,255,.5);
     }
     .hero-strip-logos{
-      display:flex;align-items:center;gap:var(--s-7);
+      display:flex;align-items:center;gap:var(--s-6);
     }
     .hero-strip-logo{
-      width:48px;height:48px;
-      border:1px solid rgba(255,255,255,.4);
+      width:54px;height:54px;
       display:flex;align-items:center;justify-content:center;
-      color:var(--white);
-      font-size:11px;font-weight:700;
-      letter-spacing:.05em;
-      transition:opacity .2s var(--ease);
-      /* Drop logo: background:url('snsu.png') center/72% no-repeat; border:none; */
+      background:#fff;
+      border-radius:50%;
+      padding:7px;
+      transition:transform .25s var(--ease),opacity .2s var(--ease);
+      overflow:hidden;
     }
-    .hero-strip-logo:hover{opacity:.7}
+    .hero-strip-logo img{
+      width:100%;height:100%;object-fit:contain;
+    }
+    .hero-strip-logo:hover{transform:translateY(-3px)}
     .hero-strip-tagline{
       font-size:11px;font-weight:700;
       letter-spacing:.24em;
@@ -377,7 +379,7 @@
   <!-- ─── HERO ─── -->
   <section class="hero">
     <div class="hero-bg" aria-hidden="true">
-      <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1800&q=80" alt="">
+      <img src="images/home/hero.png" alt="">
     </div>
 
     <div class="container">
@@ -399,9 +401,9 @@
         <div class="hero-strip-inner">
           <p class="hero-strip-label">Affiliations</p>
           <div class="hero-strip-logos" aria-label="Partner logos">
-            <span class="hero-strip-logo" title="SNSU">SNSU</span>
-            <span class="hero-strip-logo" title="CCIS">CCIS</span>
-            <span class="hero-strip-logo" title="ComSoc">CS</span>
+            <span class="hero-strip-logo" title="SNSU"><img src="images/logos/snsu.png" alt="SNSU"></span>
+            <span class="hero-strip-logo" title="CCIS"><img src="images/logos/ccis.png" alt="CCIS"></span>
+            <span class="hero-strip-logo" title="ComSoc"><img src="images/logos/comsoc.png" alt="ComSoc"></span>
           </div>
           <p class="hero-strip-tagline">Computer Society · 2025–2026</p>
         </div>
@@ -424,7 +426,7 @@
               <span class="about-block-num">01 — Mission</span>
             </div>
             <h3>What we do.</h3>
-            <p>To cultivate a culture of innovation and lifelong learning in programming, machine learning, and data science — building a collaborative, inclusive community where students strengthen their technical expertise, achieve professional growth, and apply computer science knowledge to real-world challenges.</p>
+            <p>To cultivate a culture of innovation and lifelong learning in programming, machine learning, and data science. To build a collaborative and inclusive community where students strengthen their technical expertise, achieve professional growth, and apply computer science knowledge to address real-world challenges. To enrich members' academic journey through dynamic activities, purposeful initiatives, and effective information-sharing, making their experience in the Computer Society both meaningful and memorable.</p>
           </div>
 
           <div class="about-block reveal">
@@ -432,7 +434,7 @@
               <span class="about-block-num">02 — Vision</span>
             </div>
             <h3>Where we're going.</h3>
-            <p>To be one of the university's leading organizations that empower BSCS students to become innovative and skilled ICT practitioners — upholding technological excellence, professional integrity, and contributing meaningfully to the sustainable development of Caraga and beyond.</p>
+            <p>To be one of the university's leading organizations that empower BSCS students to become innovative and skilled ICT practitioners, upholding technological excellence, professional integrity, and contributing meaningfully to the sustainable development of Caraga and beyond.</p>
           </div>
 
           <div class="about-block reveal" style="border-top:none;padding-top:0">
