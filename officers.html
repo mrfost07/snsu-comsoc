@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Meet the officers and leaders of the SNSU Computer Society.">
+  <meta name="theme-color" content="#000000">
+  <title>Officers — SNSU Computer Society</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ── EXEC TEAM — editorial poster layout ────────── */
+    .exec-section{
+      padding:var(--s-10) 0 0;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .exec-stage{
+      position:relative;
+      padding:var(--s-9) 0 var(--s-7);
+      background:var(--gray-1);
+      overflow:hidden;
+      isolation:isolate;
+    }
+
+    /* Giant outlined COMSOC backdrop word in real orange */
+    .exec-backdrop{
+      position:absolute;
+      top:50%;left:50%;
+      transform:translate(-50%,-50%);
+      z-index:0;
+      font-family:var(--font);
+      font-weight:900;
+      font-size:clamp(96px,18vw,260px);
+      letter-spacing:.04em;
+      line-height:.85;
+      white-space:nowrap;
+      pointer-events:none;user-select:none;
+      -webkit-text-stroke:2px var(--orange);
+      color:transparent;
+      opacity:.85;
+    }
+
+    .exec-row{
+      position:relative;z-index:1;
+      display:grid;
+      grid-template-columns:repeat(7,1fr);
+      align-items:end;
+      gap:0;
+      max-width:1600px;margin:0 auto;
+      padding:0 var(--s-5);
+    }
+    .exec-member{
+      position:relative;
+      display:flex;flex-direction:column;align-items:center;
+      text-align:center;
+      transition:transform .35s var(--ease);
+    }
+    .exec-member:hover{transform:translateY(-6px)}
+
+    /* Triangulated lift offsets */
+    .exec-member.tm-1{transform:translateY(48px)}
+    .exec-member.tm-2{transform:translateY(28px)}
+    .exec-member.tm-3{transform:translateY(8px)}
+    .exec-member.tm-4{transform:translateY(-12px);z-index:2}
+    .exec-member.tm-5{transform:translateY(8px)}
+    .exec-member.tm-6{transform:translateY(28px)}
+    .exec-member.tm-7{transform:translateY(48px)}
+    .exec-member.tm-1:hover{transform:translateY(40px)}
+    .exec-member.tm-2:hover{transform:translateY(20px)}
+    .exec-member.tm-3:hover{transform:translateY(0)}
+    .exec-member.tm-4:hover{transform:translateY(-22px)}
+    .exec-member.tm-5:hover{transform:translateY(0)}
+    .exec-member.tm-6:hover{transform:translateY(20px)}
+    .exec-member.tm-7:hover{transform:translateY(40px)}
+
+    .exec-portrait{
+      position:relative;
+      width:100%;
+      aspect-ratio:3/4;
+      display:flex;align-items:flex-end;justify-content:center;
+    }
+    .exec-portrait img{
+      width:auto;
+      max-width:130%;max-height:100%;
+      height:auto;
+      object-fit:contain;
+      object-position:bottom center;
+      filter:grayscale(1) drop-shadow(0 18px 24px rgba(0,0,0,.18));
+      transition:filter .35s var(--ease);
+    }
+    .exec-member:hover .exec-portrait img{
+      filter:grayscale(0) drop-shadow(0 18px 24px rgba(0,0,0,.18));
+    }
+
+    .exec-member.is-president .exec-portrait{aspect-ratio:3/4.4}
+    .exec-member.is-president .exec-portrait img{max-width:140%}
+
+    .exec-name{
+      font-family:var(--font);
+      font-weight:700;
+      font-size:13px;
+      color:var(--black);
+      letter-spacing:0;
+      text-transform:uppercase;
+      margin-top:14px;
+      line-height:1.15;
+    }
+    .exec-member.is-president .exec-name{font-size:15px}
+    .exec-role{
+      font-size:10px;font-weight:700;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:var(--orange);
+      margin-top:6px;
+    }
+    .exec-member.is-president .exec-role{
+      background:var(--orange);
+      color:var(--white);
+      padding:6px 12px;
+      letter-spacing:.18em;
+    }
+
+    /* ── REPS ─────────────────────────────────────── */
+    .reps-section{
+      background:var(--white);
+      padding:var(--s-10) 0;
+      border-top:1px solid var(--gray-2);
+    }
+    .reps-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:0;
+      border-top:1px solid var(--gray-2);
+      border-bottom:1px solid var(--gray-2);
+    }
+    .rep-card{
+      padding:var(--s-6) var(--s-5);
+      border-right:1px solid var(--gray-2);
+      transition:background .25s var(--ease);
+    }
+    .rep-card:last-child{border-right:none}
+    .rep-card:hover{background:var(--gray-1)}
+    .rep-photo{
+      aspect-ratio:1;
+      background:var(--gray-1);
+      margin-bottom:24px;
+      overflow:hidden;
+      display:flex;align-items:flex-end;justify-content:center;
+    }
+    .rep-photo img{
+      width:100%;height:100%;object-fit:cover;
+      filter:grayscale(1);
+      transition:filter .4s var(--ease);
+    }
+    .rep-card:hover .rep-photo img{filter:grayscale(0)}
+    .rep-num{
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;text-transform:uppercase;
+      color:var(--orange);
+      margin-bottom:10px;
+    }
+    .rep-card h4{
+      font-size:18px;font-weight:700;
+      letter-spacing:-.01em;
+      text-transform:uppercase;
+      margin-bottom:6px;
+      line-height:1.1;
+    }
+    .rep-card .role{
+      font-size:11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--gray-4);
+    }
+
+    @media(max-width:1100px){
+      .exec-row{
+        grid-template-columns:repeat(4,1fr);
+        gap:24px 12px;
+      }
+      .exec-member{transform:none!important}
+      .exec-member.tm-4{grid-column:1 / -1;justify-self:center;max-width:280px}
+      .exec-member:hover{transform:translateY(-6px)!important}
+      .exec-backdrop{font-size:clamp(60px,16vw,140px)}
+      .reps-grid{grid-template-columns:1fr 1fr}
+      .rep-card:nth-child(2n){border-right:none}
+      .rep-card:nth-child(-n+2){border-bottom:1px solid var(--gray-2)}
+    }
+    @media(max-width:600px){
+      .exec-row{grid-template-columns:1fr 1fr;gap:16px}
+      .exec-member.tm-4{grid-column:1 / -1;max-width:240px}
+      .exec-backdrop{font-size:clamp(48px,18vw,80px)}
+      .reps-grid{grid-template-columns:1fr}
+      .rep-card{border-right:none;border-bottom:1px solid var(--gray-2)}
+      .rep-card:last-child{border-bottom:none}
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="topbar topbar-on-dark" id="navbar">
+    <div class="container">
+      <a href="index.html" class="topbar-brand">
+        <strong>SNSU</strong>
+        <span class="topbar-brand-sep"></span>
+        <em>Computer Society</em>
+        <span class="topbar-brand-mark">CS</span>
+      </a>
+      <div class="topbar-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="officers.html" class="active">Officers</a>
+        <a href="about.html">About</a>
+      </div>
+      <button class="topbar-burger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ─── PAGE HERO ─── -->
+  <section class="page-hero">
+    <div class="page-hero-photo" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80" alt="">
+    </div>
+    <div class="container">
+      <div class="page-hero-meta">
+        <div>
+          <a href="index.html">Home</a> · <span style="color:rgba(255,255,255,.5)">Officers</span>
+        </div>
+        <span>2025–2026</span>
+      </div>
+      <div class="page-hero-inner">
+        <h1 class="reveal">The <em>Team</em>.</h1>
+        <p class="page-hero-desc reveal">The people behind every initiative, event, and achievement — driving the organization with purpose and excellence.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EXEC TEAM ─── -->
+  <section class="exec-section">
+    <div class="container">
+      <div class="section-head reveal" style="margin-bottom:64px">
+        <p class="eyebrow">Executive officers</p>
+        <h2 class="h2">Academic Year <em>2025/26</em>.</h2>
+        <p class="body-lg">All seven officers leading SNSU Computer Society this year.</p>
+      </div>
+    </div>
+
+    <div class="exec-stage">
+      <div class="exec-backdrop" aria-hidden="true">COMSOC</div>
+
+      <div class="exec-row">
+        <div class="exec-member tm-1 reveal" data-delay="280">
+          <div class="exec-portrait">
+            <img src="https://placehold.co/400x540/F2F2F2/000000?text=+" alt="Treasurer portrait">
+          </div>
+          <p class="exec-name">[Treasurer Name]</p>
+          <span class="exec-role">Treasurer</span>
+        </div>
+
+        <div class="exec-member tm-2 reveal" data-delay="220">
+          <div class="exec-portrait">
+            <img src="https://placehold.co/420x560/F2F2F2/000000?text=+" alt="Sergeant at Arms portrait">
+          </div>
+          <p class="exec-name">[Sgt. at Arms Name]</p>
+          <span class="exec-role">Sgt. at Arms</span>
+        </div>
+
+        <div class="exec-member tm-3 reveal" data-delay="120">
+          <div class="exec-portrait">
+            <img src="https://placehold.co/440x600/F2F2F2/000000?text=+" alt="Vice President portrait">
+          </div>
+          <p class="exec-name">[Vice President Name]</p>
+          <span class="exec-role">Vice President</span>
+        </div>
+
+        <div class="exec-member tm-4 is-president reveal" data-delay="0">
+          <div class="exec-portrait">
+            <img src="https://placehold.co/500x680/F2F2F2/000000?text=+" alt="President portrait">
+          </div>
+          <p class="exec-name">[President Name]</p>
+          <span class="exec-role">President</span>
+        </div>
+
+        <div class="exec-member tm-5 reveal" data-delay="120">
+          <div class="exec-portrait">
+            <img src="https://placehold.co/440x600/F2F2F2/000000?text=+" alt="Secretary portrait">
+          </div>
+          <p class="exec-name">[Secretary Name]</p>
+          <span class="exec-role">Secretary</span>
+        </div>
+
+        <div class="exec-member tm-6 reveal" data-delay="220">
+          <div class="exec-portrait">
+            <img src="https://placehold.co/420x560/F2F2F2/000000?text=+" alt="Auditor portrait">
+          </div>
+          <p class="exec-name">[Auditor Name]</p>
+          <span class="exec-role">Auditor</span>
+        </div>
+
+        <div class="exec-member tm-7 reveal" data-delay="280">
+          <div class="exec-portrait">
+            <img src="https://placehold.co/400x540/F2F2F2/000000?text=+" alt="Peace Officer portrait">
+          </div>
+          <p class="exec-name">[Peace Officer Name]</p>
+          <span class="exec-role">Peace Officer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── REPS ─── -->
+  <section class="reps-section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Representatives</p>
+        <h2 class="h2">Year-level <em>reps</em>.</h2>
+        <p class="body-lg">Voices of every batch — connecting members across the academic levels.</p>
+      </div>
+
+      <div class="reps-grid">
+        <div class="rep-card reveal">
+          <div class="rep-photo"><img src="https://placehold.co/400x400/F2F2F2/000000?text=+" alt="1st Year Rep"></div>
+          <p class="rep-num">01</p>
+          <h4>[1st Year Rep]</h4>
+          <p class="role">1st Year</p>
+        </div>
+        <div class="rep-card reveal">
+          <div class="rep-photo"><img src="https://placehold.co/400x400/F2F2F2/000000?text=+" alt="2nd Year Rep"></div>
+          <p class="rep-num">02</p>
+          <h4>[2nd Year Rep]</h4>
+          <p class="role">2nd Year</p>
+        </div>
+        <div class="rep-card reveal">
+          <div class="rep-photo"><img src="https://placehold.co/400x400/F2F2F2/000000?text=+" alt="3rd Year Rep"></div>
+          <p class="rep-num">03</p>
+          <h4>[3rd Year Rep]</h4>
+          <p class="role">3rd Year</p>
+        </div>
+        <div class="rep-card reveal">
+          <div class="rep-photo"><img src="https://placehold.co/400x400/F2F2F2/000000?text=+" alt="4th Year Rep"></div>
+          <p class="rep-num">04</p>
+          <h4>[4th Year Rep]</h4>
+          <p class="role">4th Year</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-cta reveal">
+        <h2>Ready to <em>join us</em>?</h2>
+        <a href="#" class="btn btn-orange">
+          Get in touch
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="topbar-brand">
+            <strong>SNSU</strong>
+            <span class="topbar-brand-sep"></span>
+            <em>Computer Society</em>
+          </a>
+          <p>Empowering future tech leaders through innovation, education, and community at Surigao del Norte State University.</p>
+        </div>
+        <div><h4>Pages</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="events.html">Events</a></li><li><a href="officers.html">Officers</a></li><li><a href="about.html">About</a></li></ul></div>
+        <div><h4>Resources</h4><ul class="footer-links"><li><a href="#">Membership</a></li><li><a href="#">Code of Conduct</a></li><li><a href="#">Sponsorship</a></li><li><a href="#">Contact</a></li></ul></div>
+        <div><h4>Connect</h4><ul class="footer-links"><li><a href="#">Facebook</a></li><li><a href="#">GitHub</a></li><li><a href="#">Discord</a></li><li><a href="mailto:hello@snsucomsoc.org">Email us</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SNSU Computer Society Organization</p>
+        <div class="footer-socials">
+          <a href="#">Facebook</a>
+          <a href="#">GitHub</a>
+          <a href="#">Discord</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse all events from SNSU Computer Society — workshops, hackathons, and seminars.">
+  <meta name="theme-color" content="#000000">
+  <title>Events — SNSU Computer Society</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ── FEATURED ─────────────────────────────────── */
+    .featured{
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:96px;align-items:center;
+    }
+    .featured-photo{
+      position:relative;
+      aspect-ratio:5/4;
+      overflow:hidden;
+      background:var(--gray-1);
+    }
+    .featured-photo img{
+      width:100%;height:100%;object-fit:cover;
+      filter:grayscale(1);
+      transition:filter .5s var(--ease),transform .5s var(--ease);
+    }
+    .featured-photo:hover img{filter:grayscale(0);transform:scale(1.02)}
+
+    .featured-tag{
+      display:inline-block;
+      padding:8px 16px;
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;text-transform:uppercase;
+      background:var(--orange);
+      color:var(--white);
+      margin-bottom:24px;
+    }
+    .featured h2{
+      font-size:clamp(48px,7vw,96px);
+      font-weight:700;
+      letter-spacing:-.04em;
+      line-height:.92;
+      text-transform:uppercase;
+      margin-bottom:24px;
+    }
+    .featured h2 em{font-style:normal;color:var(--orange)}
+    .featured-meta{
+      display:flex;flex-direction:column;gap:14px;
+      padding:24px 0;
+      border-top:1px solid var(--gray-2);
+      border-bottom:1px solid var(--gray-2);
+      margin-bottom:32px;
+    }
+    .featured-meta span{
+      font-size:13px;
+      letter-spacing:.16em;text-transform:uppercase;
+      display:inline-flex;align-items:center;gap:14px;
+      color:var(--gray-4);
+    }
+    .featured-meta strong{
+      font-weight:700;color:var(--black);
+      min-width:90px;display:inline-block;
+    }
+    .featured p.desc{
+      font-size:16px;line-height:1.7;
+      color:var(--gray-4);
+      margin-bottom:32px;
+    }
+
+    /* ── LIST + FILTERS ───────────────────────────── */
+    .list-section{
+      background:var(--black);
+      color:var(--white);
+      padding:var(--s-11) 0;
+    }
+    .list-section .h2{color:var(--white)}
+
+    .filters-row{
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;gap:24px;
+      padding-bottom:24px;
+      border-bottom:1px solid rgba(255,255,255,.18);
+      margin-bottom:48px;
+    }
+    .filters{display:flex;gap:32px}
+    .filter-btn{
+      font-family:var(--font);
+      font-size:12px;font-weight:700;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.5);
+      padding:6px 0;
+      border:none;background:none;
+      cursor:pointer;
+      transition:color .2s var(--ease);
+      position:relative;
+    }
+    .filter-btn:hover{color:var(--white)}
+    .filter-btn.active{color:var(--orange)}
+    .filter-btn.active::after{
+      content:'';position:absolute;
+      left:0;right:0;bottom:-4px;height:1px;
+      background:var(--orange);
+    }
+    .filters-count{
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;text-transform:uppercase;
+      color:rgba(255,255,255,.4);
+    }
+
+    .ev-list{display:flex;flex-direction:column}
+    .ev-row{
+      display:grid;
+      grid-template-columns:120px 1fr 220px 140px;
+      gap:48px;
+      padding:36px 0;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      align-items:center;
+      transition:padding .25s var(--ease);
+    }
+    .ev-row:hover{padding-left:16px}
+    .ev-row.hidden{display:none}
+
+    .ev-row-date{
+      font-family:var(--font);
+      font-weight:700;
+    }
+    .ev-row-day{
+      font-size:42px;line-height:.9;
+      color:var(--white);
+      letter-spacing:-.03em;
+    }
+    .ev-row[data-status="past"] .ev-row-day{color:rgba(255,255,255,.35)}
+    .ev-row-month{
+      font-size:11px;
+      letter-spacing:.24em;text-transform:uppercase;
+      color:var(--orange);
+      margin-top:8px;
+    }
+    .ev-row[data-status="past"] .ev-row-month{color:rgba(255,255,255,.35)}
+
+    .ev-row h3{
+      font-size:24px;font-weight:700;
+      letter-spacing:-.01em;
+      text-transform:uppercase;
+      margin-bottom:8px;
+      color:var(--white);
+    }
+    .ev-row[data-status="past"] h3{color:rgba(255,255,255,.6)}
+    .ev-row-cat{
+      display:inline-block;
+      font-size:10px;font-weight:700;
+      letter-spacing:.24em;text-transform:uppercase;
+      color:var(--orange);
+      margin-bottom:8px;
+    }
+    .ev-row[data-status="past"] .ev-row-cat{color:rgba(255,255,255,.4)}
+    .ev-row-desc{
+      font-size:13px;line-height:1.6;
+      color:rgba(255,255,255,.55);
+    }
+    .ev-row-loc{
+      font-size:12px;
+      letter-spacing:.18em;text-transform:uppercase;
+      color:rgba(255,255,255,.55);
+    }
+    .ev-row-status{
+      font-size:10px;font-weight:700;
+      letter-spacing:.24em;text-transform:uppercase;
+      padding:8px 14px;
+      text-align:center;
+    }
+    .ev-row-status.upcoming{
+      background:var(--orange);color:var(--white);
+    }
+    .ev-row-status.done{
+      border:1px solid rgba(255,255,255,.18);
+      color:rgba(255,255,255,.4);
+    }
+
+    /* ── TIMELINE ─────────────────────────────────── */
+    .timeline-section{padding:var(--s-11) 0;background:var(--white)}
+    .timeline{
+      max-width:880px;margin:0 auto;
+      padding-left:32px;
+      border-left:1px solid var(--gray-2);
+    }
+    .tl-item{
+      position:relative;
+      padding-bottom:64px;
+      padding-left:48px;
+    }
+    .tl-item:last-child{padding-bottom:0}
+    .tl-item::before{
+      content:'';position:absolute;
+      left:-37px;top:8px;
+      width:11px;height:11px;
+      background:var(--orange);
+    }
+    .tl-date{
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;text-transform:uppercase;
+      color:var(--orange);
+      margin-bottom:12px;
+    }
+    .tl-content h4{
+      font-size:24px;font-weight:700;
+      letter-spacing:-.01em;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    .tl-content p{
+      font-size:14px;line-height:1.7;
+      color:var(--gray-4);
+    }
+
+    @media(max-width:1024px){
+      .featured{grid-template-columns:1fr;gap:48px}
+      .ev-row{grid-template-columns:80px 1fr;gap:24px;padding:28px 0}
+      .ev-row-loc,.ev-row-status{grid-column:2;justify-self:start}
+      .ev-row-day{font-size:32px}
+    }
+    @media(max-width:600px){
+      .filters-row{flex-direction:column;align-items:flex-start;gap:16px}
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="topbar topbar-on-dark" id="navbar">
+    <div class="container">
+      <a href="index.html" class="topbar-brand">
+        <strong>SNSU</strong>
+        <span class="topbar-brand-sep"></span>
+        <em>Computer Society</em>
+        <span class="topbar-brand-mark">CS</span>
+      </a>
+      <div class="topbar-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="events.html" class="active">Events</a>
+        <a href="officers.html">Officers</a>
+        <a href="about.html">About</a>
+      </div>
+      <button class="topbar-burger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ─── PAGE HERO ─── -->
+  <section class="page-hero">
+    <div class="page-hero-photo" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1600&q=80" alt="">
+    </div>
+    <div class="container">
+      <div class="page-hero-meta">
+        <div>
+          <a href="index.html">Home</a> · <span style="color:rgba(255,255,255,.5)">Events</span>
+        </div>
+        <span>2025–2026</span>
+      </div>
+      <div class="page-hero-inner">
+        <h1 class="reveal"><em>Events</em>.</h1>
+        <p class="page-hero-desc reveal">Workshops, competitions, summits, and gatherings — every month, year-round, all designed to push you forward.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FEATURED ─── -->
+  <section class="section section-loose">
+    <div class="container">
+      <div class="section-head reveal" style="margin-bottom:80px">
+        <p class="eyebrow">Spotlight</p>
+        <h2 class="h2">Featured <em>event</em>.</h2>
+      </div>
+
+      <div class="featured">
+        <div class="featured-photo reveal-l">
+          <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&q=80" alt="Hackathon 2026">
+        </div>
+        <div class="reveal-r">
+          <span class="featured-tag">Registration open</span>
+          <h2>Hackathon <em>2026</em></h2>
+          <div class="featured-meta">
+            <span><strong>Date</strong> June 15–17, 2026</span>
+            <span><strong>Where</strong> SNSU Main Campus</span>
+            <span><strong>Length</strong> 48 hours</span>
+          </div>
+          <p class="desc">A 48-hour coding marathon where teams build innovative solutions to real-world challenges. Open to all SNSU students — bring your team, your ideas, and your laptop.</p>
+          <a href="#" class="btn btn-orange">
+            Register now
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── LIST ─── -->
+  <section class="list-section">
+    <div class="container">
+      <div class="section-head reveal" style="margin-bottom:64px">
+        <p class="eyebrow eyebrow-light">All events</p>
+        <h2 class="h2">Browse the <em>schedule</em>.</h2>
+      </div>
+
+      <div class="filters-row reveal">
+        <div class="filters" role="tablist">
+          <button class="filter-btn active" data-filter="all" role="tab">All</button>
+          <button class="filter-btn" data-filter="upcoming" role="tab">Upcoming</button>
+          <button class="filter-btn" data-filter="past" role="tab">Past</button>
+        </div>
+        <span class="filters-count">7 events</span>
+      </div>
+
+      <div class="ev-list">
+        <article class="ev-row reveal" data-status="upcoming">
+          <div class="ev-row-date"><p class="ev-row-day">15</p><p class="ev-row-month">Jun 2026</p></div>
+          <div>
+            <p class="ev-row-cat">Competition</p>
+            <h3>Hackathon 2026</h3>
+            <p class="ev-row-desc">A 48-hour coding marathon where teams build innovative solutions.</p>
+          </div>
+          <p class="ev-row-loc">SNSU Main Campus</p>
+          <span class="ev-row-status upcoming">Upcoming</span>
+        </article>
+
+        <article class="ev-row reveal" data-status="upcoming">
+          <div class="ev-row-date"><p class="ev-row-day">20</p><p class="ev-row-month">Jul 2026</p></div>
+          <div>
+            <p class="ev-row-cat">Seminar</p>
+            <h3>Tech Summit 2026</h3>
+            <p class="ev-row-desc">A full-day summit with keynote speakers, panels, and networking.</p>
+          </div>
+          <p class="ev-row-loc">SNSU Auditorium</p>
+          <span class="ev-row-status upcoming">Upcoming</span>
+        </article>
+
+        <article class="ev-row reveal" data-status="upcoming">
+          <div class="ev-row-date"><p class="ev-row-day">05</p><p class="ev-row-month">Aug 2026</p></div>
+          <div>
+            <p class="ev-row-cat">Competition</p>
+            <h3>CodeFest Challenge</h3>
+            <p class="ev-row-desc">Competitive programming — solve algorithmic challenges in teams of three.</p>
+          </div>
+          <p class="ev-row-loc">CS Building Lab 3</p>
+          <span class="ev-row-status upcoming">Upcoming</span>
+        </article>
+
+        <article class="ev-row reveal" data-status="upcoming">
+          <div class="ev-row-date"><p class="ev-row-day">18</p><p class="ev-row-month">Aug 2026</p></div>
+          <div>
+            <p class="ev-row-cat">Workshop</p>
+            <h3>Web Dev Workshop</h3>
+            <p class="ev-row-desc">Modern web development with HTML, CSS, JavaScript, and React fundamentals.</p>
+          </div>
+          <p class="ev-row-loc">CS Building Lab 1</p>
+          <span class="ev-row-status upcoming">Upcoming</span>
+        </article>
+
+        <article class="ev-row reveal" data-status="past">
+          <div class="ev-row-date"><p class="ev-row-day">12</p><p class="ev-row-month">Mar 2026</p></div>
+          <div>
+            <p class="ev-row-cat">Seminar</p>
+            <h3>AI &amp; Machine Learning Talk</h3>
+            <p class="ev-row-desc">Industry experts on neural networks, NLP, and computer vision.</p>
+          </div>
+          <p class="ev-row-loc">SNSU Auditorium</p>
+          <span class="ev-row-status done">Completed</span>
+        </article>
+
+        <article class="ev-row reveal" data-status="past">
+          <div class="ev-row-date"><p class="ev-row-day">08</p><p class="ev-row-month">Feb 2026</p></div>
+          <div>
+            <p class="ev-row-cat">Workshop</p>
+            <h3>Game Development Night</h3>
+            <p class="ev-row-desc">Game development using Unity and Godot — 45 participants built mini-games.</p>
+          </div>
+          <p class="ev-row-loc">CS Building Lab 2</p>
+          <span class="ev-row-status done">Completed</span>
+        </article>
+
+        <article class="ev-row reveal" data-status="past">
+          <div class="ev-row-date"><p class="ev-row-day">20</p><p class="ev-row-month">Jan 2026</p></div>
+          <div>
+            <p class="ev-row-cat">Social</p>
+            <h3>Annual General Assembly</h3>
+            <p class="ev-row-desc">Year kick-off — new executive board, achievements review, 2026 roadmap.</p>
+          </div>
+          <p class="ev-row-loc">SNSU Function Hall</p>
+          <span class="ev-row-status done">Completed</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TIMELINE ─── -->
+  <section class="timeline-section">
+    <div class="container">
+      <div class="section-head reveal" style="margin-bottom:64px">
+        <p class="eyebrow">Timeline</p>
+        <h2 class="h2">A look <em>back</em>.</h2>
+        <p class="body-lg">The milestones that shaped our community this year.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item reveal"><p class="tl-date">January 2026</p><div class="tl-content"><h4>Annual General Assembly</h4><p>Kicked off the year with a fresh executive board and roadmap. 120+ attendees.</p></div></div>
+        <div class="tl-item reveal"><p class="tl-date">February 2026</p><div class="tl-content"><h4>Game Development Night</h4><p>First hands-on workshop — 45 participants building mini-games.</p></div></div>
+        <div class="tl-item reveal"><p class="tl-date">March 2026</p><div class="tl-content"><h4>AI &amp; ML Talk</h4><p>Partnered with industry professionals for an in-depth AI/ML seminar.</p></div></div>
+        <div class="tl-item reveal"><p class="tl-date">April 2026</p><div class="tl-content"><h4>Community Outreach</h4><p>Computer literacy program reaching 60 beneficiaries.</p></div></div>
+        <div class="tl-item reveal"><p class="tl-date">June 2026</p><div class="tl-content"><h4>Hackathon 2026</h4><p>Our flagship 48-hour hackathon — the biggest event of the year.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-cta reveal">
+        <h2>Ready to <em>join us</em>?</h2>
+        <a href="#" class="btn btn-orange">
+          Get in touch
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="topbar-brand">
+            <strong>SNSU</strong>
+            <span class="topbar-brand-sep"></span>
+            <em>Computer Society</em>
+          </a>
+          <p>Empowering future tech leaders through innovation, education, and community at Surigao del Norte State University.</p>
+        </div>
+        <div><h4>Pages</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="events.html">Events</a></li><li><a href="officers.html">Officers</a></li><li><a href="about.html">About</a></li></ul></div>
+        <div><h4>Resources</h4><ul class="footer-links"><li><a href="#">Membership</a></li><li><a href="#">Code of Conduct</a></li><li><a href="#">Sponsorship</a></li><li><a href="#">Contact</a></li></ul></div>
+        <div><h4>Connect</h4><ul class="footer-links"><li><a href="#">Facebook</a></li><li><a href="#">GitHub</a></li><li><a href="#">Discord</a></li><li><a href="mailto:hello@snsucomsoc.org">Email us</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SNSU Computer Society Organization</p>
+        <div class="footer-socials">
+          <a href="#">Facebook</a>
+          <a href="#">GitHub</a>
+          <a href="#">Discord</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

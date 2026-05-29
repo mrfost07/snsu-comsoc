@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn about SNSU Computer Society — our mission, vision, values, and story.">
+  <meta name="theme-color" content="#000000">
+  <title>About — SNSU Computer Society</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ── WHO WE ARE ──────────────────────────────── */
+    .who-grid{
+      display:grid;
+      grid-template-columns:1fr 1.1fr;
+      gap:96px;align-items:start;
+    }
+    .who-photo{
+      position:relative;
+      aspect-ratio:4/5;
+      overflow:hidden;
+      background:var(--gray-1);
+    }
+    .who-photo img{
+      width:100%;height:100%;object-fit:cover;
+      filter:grayscale(1);
+      transition:filter .5s var(--ease),transform .5s var(--ease);
+    }
+    .who-photo:hover img{filter:grayscale(0);transform:scale(1.02)}
+    .who-text .body-lg{margin-bottom:24px;color:var(--gray-4)}
+
+    /* ── MV — alternating black/white columns ───── */
+    .mv-section{padding:0;background:var(--white)}
+    .mv-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      min-height:520px;
+    }
+    .mv-cell{
+      padding:var(--s-9) var(--s-7);
+      display:flex;flex-direction:column;justify-content:space-between;
+    }
+    .mv-cell.dark{background:var(--black);color:var(--white)}
+    .mv-cell.light{background:var(--white);color:var(--black);border-right:1px solid var(--gray-2)}
+    .mv-cell-num{
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:var(--orange);
+      margin-bottom:32px;
+    }
+    .mv-cell h2{
+      font-size:clamp(48px,5.5vw,84px);
+      font-weight:700;
+      letter-spacing:-.04em;
+      line-height:.95;
+      text-transform:uppercase;
+      margin-bottom:24px;
+    }
+    .mv-cell h2 em{font-style:normal;color:var(--orange)}
+    .mv-cell p{
+      font-size:16px;line-height:1.7;
+      max-width:480px;
+    }
+    .mv-cell.dark p{color:rgba(255,255,255,.7)}
+    .mv-cell.light p{color:var(--gray-4)}
+
+    /* ── VALUES ──────────────────────────────────── */
+    .val-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:0;
+      border-top:1px solid var(--gray-2);
+      border-bottom:1px solid var(--gray-2);
+    }
+    .val-cell{
+      padding:var(--s-7) var(--s-5) var(--s-7);
+      border-right:1px solid var(--gray-2);
+      transition:background .25s var(--ease);
+    }
+    .val-cell:last-child{border-right:none}
+    .val-cell:hover{background:var(--gray-1)}
+    .val-num{
+      font-family:var(--font);
+      font-size:48px;font-weight:700;
+      line-height:1;
+      letter-spacing:-.03em;
+      color:var(--orange);
+      margin-bottom:32px;
+    }
+    .val-cell h4{
+      font-size:24px;font-weight:700;
+      letter-spacing:-.01em;
+      text-transform:uppercase;
+      margin-bottom:14px;
+      line-height:1.05;
+    }
+    .val-cell p{
+      font-size:14px;line-height:1.65;
+      color:var(--gray-4);
+    }
+
+    /* ── TIMELINE ────────────────────────────────── */
+    .tl-section{
+      background:var(--black);color:var(--white);
+      padding:var(--s-11) 0;
+    }
+    .tl-section .h2{color:var(--white)}
+    .timeline{
+      max-width:880px;margin:0 auto;
+      padding-left:32px;
+      border-left:1px solid rgba(255,255,255,.18);
+    }
+    .tl-item{
+      position:relative;
+      padding-bottom:64px;
+      padding-left:48px;
+    }
+    .tl-item:last-child{padding-bottom:0}
+    .tl-item::before{
+      content:'';position:absolute;
+      left:-37px;top:8px;
+      width:11px;height:11px;
+      background:var(--orange);
+    }
+    .tl-date{
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;text-transform:uppercase;
+      color:var(--orange);
+      margin-bottom:12px;
+    }
+    .tl-content h4{
+      font-size:24px;font-weight:700;
+      letter-spacing:-.01em;
+      text-transform:uppercase;
+      margin-bottom:10px;
+      color:var(--white);
+    }
+    .tl-content p{
+      font-size:14px;line-height:1.7;
+      color:rgba(255,255,255,.65);
+    }
+
+    /* ── WHAT WE DO ──────────────────────────────── */
+    .wwd-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:0;
+      border-top:1px solid var(--gray-2);
+      border-bottom:1px solid var(--gray-2);
+    }
+    .wwd-cell{
+      padding:var(--s-7) var(--s-6);
+      border-right:1px solid var(--gray-2);
+      transition:background .25s var(--ease);
+    }
+    .wwd-cell:last-child{border-right:none}
+    .wwd-cell:hover{background:var(--gray-1)}
+    .wwd-num{
+      font-family:var(--font);
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:var(--orange);
+      margin-bottom:48px;
+    }
+    .wwd-cell h4{
+      font-size:32px;font-weight:700;
+      letter-spacing:-.02em;
+      line-height:1.05;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+    .wwd-cell p{
+      font-size:14px;line-height:1.7;
+      color:var(--gray-4);
+    }
+
+    @media(max-width:1024px){
+      .who-grid{grid-template-columns:1fr;gap:48px}
+      .mv-grid{grid-template-columns:1fr}
+      .mv-cell.light{border-right:none;border-bottom:1px solid var(--gray-2)}
+      .val-grid{grid-template-columns:1fr 1fr}
+      .val-cell:nth-child(2n){border-right:none}
+      .val-cell:nth-child(-n+2){border-bottom:1px solid var(--gray-2)}
+      .wwd-grid{grid-template-columns:1fr}
+      .wwd-cell{border-right:none;border-bottom:1px solid var(--gray-2)}
+      .wwd-cell:last-child{border-bottom:none}
+    }
+    @media(max-width:600px){
+      .val-grid{grid-template-columns:1fr}
+      .val-cell{border-right:none;border-bottom:1px solid var(--gray-2)}
+      .val-cell:last-child{border-bottom:none}
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="topbar topbar-on-dark" id="navbar">
+    <div class="container">
+      <a href="index.html" class="topbar-brand">
+        <strong>SNSU</strong>
+        <span class="topbar-brand-sep"></span>
+        <em>Computer Society</em>
+        <span class="topbar-brand-mark">CS</span>
+      </a>
+      <div class="topbar-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="officers.html">Officers</a>
+        <a href="about.html" class="active">About</a>
+      </div>
+      <button class="topbar-burger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ─── PAGE HERO ─── -->
+  <section class="page-hero">
+    <div class="page-hero-photo" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1600&q=80" alt="">
+    </div>
+    <div class="container">
+      <div class="page-hero-meta">
+        <div>
+          <a href="index.html">Home</a> · <span style="color:rgba(255,255,255,.5)">About</span>
+        </div>
+        <span>Our story</span>
+      </div>
+      <div class="page-hero-inner">
+        <h1 class="reveal">About <em>Us</em>.</h1>
+        <p class="page-hero-desc reveal">Learn more about SNSU Computer Society — who we are, what drives us, and the community we're building for tomorrow's tech leaders.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WHO ─── -->
+  <section class="section section-loose">
+    <div class="container">
+      <div class="who-grid">
+        <div class="who-photo reveal-l">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&q=80" alt="SNSU Computer Society members">
+        </div>
+        <div class="who-text reveal-r">
+          <p class="eyebrow">Who we are</p>
+          <h2 class="h2">Passionate about <em>technology</em>.</h2>
+          <p class="body-lg" style="margin-top:32px">SNSU Computer Society is the premier technology-focused student organization at Surigao del Norte State University. Founded to bridge the gap between classroom learning and real-world tech, we've grown into a thriving community of innovators.</p>
+          <p class="body-lg">We provide opportunities to develop technical skills, engage with industry professionals, and build projects that create real impact — whether you're writing your first line of code or shipping production software.</p>
+          <a href="events.html" class="btn btn-orange" style="margin-top:24px">
+            See what we do
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MISSION + VISION ─── -->
+  <section class="mv-section">
+    <div class="mv-grid">
+      <div class="mv-cell light reveal">
+        <div>
+          <p class="mv-cell-num">01 — Mission</p>
+          <h2>What we <em>do</em>.</h2>
+        </div>
+        <p>To cultivate a vibrant community of tech enthusiasts through hands-on learning experiences, meaningful collaboration, and the empowerment of students with real-world skills and knowledge to thrive in the digital age.</p>
+      </div>
+      <div class="mv-cell dark reveal">
+        <div>
+          <p class="mv-cell-num">02 — Vision</p>
+          <h2>Where we're <em>going</em>.</h2>
+        </div>
+        <p>To be the leading student technology organization in the region, recognized for producing innovative leaders who drive technological advancement and create positive, lasting change in the community and beyond.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── VALUES ─── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal" style="margin-bottom:64px">
+        <p class="eyebrow">Principles</p>
+        <h2 class="h2">Core <em>values</em>.</h2>
+        <p class="body-lg">Four ideas that shape every decision, project, and community moment.</p>
+      </div>
+
+      <div class="val-grid">
+        <div class="val-cell reveal">
+          <p class="val-num">01</p>
+          <h4>Innovation</h4>
+          <p>Embracing new technologies and creative thinking to push beyond conventional boundaries.</p>
+        </div>
+        <div class="val-cell reveal">
+          <p class="val-num">02</p>
+          <h4>Collaboration</h4>
+          <p>Working together, sharing knowledge openly, and building meaningful things as a unified team.</p>
+        </div>
+        <div class="val-cell reveal">
+          <p class="val-num">03</p>
+          <h4>Excellence</h4>
+          <p>Striving for the highest standards of quality in every project we ship and every event we host.</p>
+        </div>
+        <div class="val-cell reveal">
+          <p class="val-num">04</p>
+          <h4>Community</h4>
+          <p>Creating an inclusive space where every member belongs, grows, and contributes meaningfully.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TIMELINE ─── -->
+  <section class="tl-section">
+    <div class="container">
+      <div class="section-head reveal" style="margin-bottom:64px">
+        <p class="eyebrow eyebrow-light">History</p>
+        <h2 class="h2">Our <em>journey</em>.</h2>
+        <p class="body-lg">The milestones that shaped the Computer Society into what it is today.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item reveal"><p class="tl-date">2018</p><div class="tl-content"><h4>Organization founded</h4><p>A small group of passionate CS students formed the Computer Society with a shared vision.</p></div></div>
+        <div class="tl-item reveal"><p class="tl-date">2019</p><div class="tl-content"><h4>First hackathon</h4><p>Inaugural hackathon — 30 participants, 8 project submissions, one unforgettable weekend.</p></div></div>
+        <div class="tl-item reveal"><p class="tl-date">2021</p><div class="tl-content"><h4>100 members</h4><p>Reached 100 active members despite the challenges of remote and hybrid learning.</p></div></div>
+        <div class="tl-item reveal"><p class="tl-date">2023</p><div class="tl-content"><h4>First Tech Summit</h4><p>Hosted our first large-scale summit with industry speakers and regional participation.</p></div></div>
+        <div class="tl-item reveal"><p class="tl-date">2026</p><div class="tl-content"><h4>Present day</h4><p>200+ members, 50+ events hosted, building the next generation of technology leaders.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WHAT WE DO ─── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal" style="margin-bottom:64px">
+        <p class="eyebrow">Activities</p>
+        <h2 class="h2">What we <em>do</em>.</h2>
+      </div>
+
+      <div class="wwd-grid">
+        <div class="wwd-cell reveal">
+          <p class="wwd-num">01 — Learn</p>
+          <h4>Workshops &amp; Seminars</h4>
+          <p>Regular hands-on sessions covering web dev, mobile apps, AI/ML, cybersecurity, and emerging tech — led by members and industry pros.</p>
+        </div>
+        <div class="wwd-cell reveal">
+          <p class="wwd-num">02 — Build</p>
+          <h4>Hackathons &amp; Comp</h4>
+          <p>Competitive events that challenge members to ship real solutions, sharpen problem-solving skills, and compete for recognition.</p>
+        </div>
+        <div class="wwd-cell reveal">
+          <p class="wwd-num">03 — Connect</p>
+          <h4>Community &amp; Network</h4>
+          <p>Social events, peer mentorship, and industry connections that help members build professional networks and lasting friendships.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-cta reveal">
+        <h2>Ready to <em>join us</em>?</h2>
+        <a href="#" class="btn btn-orange">
+          Get in touch
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="topbar-brand">
+            <strong>SNSU</strong>
+            <span class="topbar-brand-sep"></span>
+            <em>Computer Society</em>
+          </a>
+          <p>Empowering future tech leaders through innovation, education, and community at Surigao del Norte State University.</p>
+        </div>
+        <div><h4>Pages</h4><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="events.html">Events</a></li><li><a href="officers.html">Officers</a></li><li><a href="about.html">About</a></li></ul></div>
+        <div><h4>Resources</h4><ul class="footer-links"><li><a href="#">Membership</a></li><li><a href="#">Code of Conduct</a></li><li><a href="#">Sponsorship</a></li><li><a href="#">Contact</a></li></ul></div>
+        <div><h4>Connect</h4><ul class="footer-links"><li><a href="#">Facebook</a></li><li><a href="#">GitHub</a></li><li><a href="#">Discord</a></li><li><a href="mailto:hello@snsucomsoc.org">Email us</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SNSU Computer Society Organization</p>
+        <div class="footer-socials">
+          <a href="#">Facebook</a>
+          <a href="#">GitHub</a>
+          <a href="#">Discord</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

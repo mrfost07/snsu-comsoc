@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SNSU Computer Society — Empowering future tech leaders at Surigao del Norte State University.">
+  <meta name="theme-color" content="#000000">
+  <title>SNSU Computer Society</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ── HERO — full-bleed black, oversized type ─────────── */
+    .hero{
+      position:relative;
+      min-height:calc(100vh - 80px);
+      background:var(--black);
+      color:var(--white);
+      overflow:hidden;
+      display:flex;flex-direction:column;
+      isolation:isolate;
+    }
+    .hero-bg{
+      position:absolute;inset:0;z-index:0;
+    }
+    .hero-bg img{
+      width:100%;height:100%;object-fit:cover;
+      filter:grayscale(1) contrast(1.05);
+      opacity:.32;
+    }
+    .hero-bg::after{
+      content:'';position:absolute;inset:0;
+      background:
+        linear-gradient(180deg,rgba(0,0,0,.4) 0%,rgba(0,0,0,.2) 40%,rgba(0,0,0,.85) 100%),
+        linear-gradient(90deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,.2) 60%);
+    }
+
+    .hero .container{
+      position:relative;z-index:1;
+      flex:1;
+      display:flex;flex-direction:column;justify-content:center;
+      padding-top:var(--s-9);
+      padding-bottom:var(--s-9);
+    }
+    .hero-eyebrow{
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.32em;
+      text-transform:uppercase;
+      color:var(--white);
+      display:inline-flex;align-items:center;gap:18px;
+      margin-bottom:var(--s-7);
+      opacity:.8;
+    }
+    .hero-eyebrow::before{
+      content:'';width:48px;height:1px;background:var(--white);
+    }
+    .hero h1{
+      font-size:clamp(64px,13vw,220px);
+      font-weight:700;
+      line-height:.84;
+      letter-spacing:-.05em;
+      text-transform:uppercase;
+      margin:0 0 var(--s-7);
+      max-width:1400px;
+    }
+    .hero h1 em{
+      font-style:normal;
+      color:var(--orange);
+    }
+    .hero-tagline{
+      font-size:clamp(18px,1.8vw,24px);
+      font-weight:400;
+      letter-spacing:0;
+      color:rgba(255,255,255,.85);
+      max-width:760px;
+      margin-bottom:var(--s-7);
+      line-height:1.4;
+    }
+    .hero-quote{
+      font-size:16px;
+      line-height:1.7;
+      color:rgba(255,255,255,.6);
+      max-width:520px;
+      margin-bottom:var(--s-8);
+      padding-left:24px;
+      border-left:1px solid rgba(255,255,255,.3);
+    }
+    .hero-actions{
+      display:flex;gap:16px;flex-wrap:wrap;
+    }
+
+    /* Bottom strip — affiliations row */
+    .hero-strip{
+      position:relative;z-index:1;
+      border-top:1px solid rgba(255,255,255,.18);
+      padding:var(--s-6) 0;
+    }
+    .hero-strip-inner{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:32px;flex-wrap:wrap;
+    }
+    .hero-strip-label{
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.5);
+    }
+    .hero-strip-logos{
+      display:flex;align-items:center;gap:var(--s-7);
+    }
+    .hero-strip-logo{
+      width:48px;height:48px;
+      border:1px solid rgba(255,255,255,.4);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--white);
+      font-size:11px;font-weight:700;
+      letter-spacing:.05em;
+      transition:opacity .2s var(--ease);
+      /* Drop logo: background:url('snsu.png') center/72% no-repeat; border:none; */
+    }
+    .hero-strip-logo:hover{opacity:.7}
+    .hero-strip-tagline{
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.7);
+    }
+
+    /* ── ABOUT — split text ────────────────────────────── */
+    .about-grid{
+      display:grid;
+      grid-template-columns:1fr 1.2fr;
+      gap:120px;
+      align-items:start;
+    }
+    .about-grid h2 em{font-style:normal;color:var(--orange)}
+    .about-stack{display:flex;flex-direction:column;gap:48px}
+    .about-block{
+      padding-top:32px;
+      border-top:1px solid var(--gray-2);
+    }
+    .about-block-meta{
+      display:flex;align-items:baseline;justify-content:space-between;
+      margin-bottom:16px;
+    }
+    .about-block-num{
+      font-family:var(--font);
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:var(--orange);
+    }
+    .about-block h3{
+      font-size:32px;font-weight:700;
+      letter-spacing:-.02em;
+      line-height:1.05;
+      margin-bottom:16px;
+      text-transform:uppercase;
+    }
+    .about-block p{font-size:15px;line-height:1.7;color:var(--gray-4);max-width:480px}
+
+    /* ── EVENTS — full-bleed dark with cards ─────────── */
+    .events-section{
+      background:var(--black);color:var(--white);
+      padding:var(--s-11) 0;
+    }
+    .events-section .h2{color:var(--white)}
+    .events-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:0;
+      border-top:1px solid rgba(255,255,255,.18);
+    }
+    .ev-card{
+      position:relative;
+      padding:var(--s-6) var(--s-5) var(--s-7);
+      border-right:1px solid rgba(255,255,255,.12);
+      border-bottom:1px solid rgba(255,255,255,.12);
+      display:flex;flex-direction:column;
+      transition:background .25s var(--ease);
+    }
+    .ev-card:last-child{border-right:none}
+    .ev-card:hover{background:rgba(255,255,255,.03)}
+    .ev-photo{
+      position:relative;
+      aspect-ratio:4/3;
+      overflow:hidden;
+      margin-bottom:var(--s-5);
+    }
+    .ev-photo img{
+      width:100%;height:100%;object-fit:cover;
+      filter:grayscale(1);
+      transition:transform .5s var(--ease),filter .5s var(--ease);
+    }
+    .ev-card:hover .ev-photo img{
+      transform:scale(1.04);
+      filter:grayscale(0);
+    }
+    .ev-tag{
+      position:absolute;top:0;left:0;
+      padding:8px 14px;
+      background:var(--orange);
+      color:var(--white);
+      font-size:10px;font-weight:700;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+    }
+    .ev-date{
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:var(--orange);
+      margin-bottom:14px;
+    }
+    .ev-card h3{
+      font-size:26px;font-weight:700;
+      line-height:1.05;
+      letter-spacing:-.02em;
+      text-transform:uppercase;
+      margin-bottom:16px;
+      color:var(--white);
+    }
+    .ev-card p{
+      font-size:14px;line-height:1.65;
+      color:rgba(255,255,255,.6);
+      margin-bottom:24px;
+      flex:1;
+    }
+    .ev-link{
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;text-transform:uppercase;
+      color:var(--white);
+      display:inline-flex;align-items:center;gap:10px;
+      transition:gap .25s var(--ease);
+    }
+    .ev-link:hover{gap:16px;opacity:1;color:var(--orange)}
+    .ev-link svg{width:12px;height:12px}
+
+    .events-cta{
+      margin-top:var(--s-8);
+      display:flex;justify-content:flex-end;
+    }
+
+    /* ── OFFICERS PREVIEW — clean card row ─────────── */
+    .officers-row{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:0;
+      border-top:1px solid var(--gray-2);
+      border-bottom:1px solid var(--gray-2);
+    }
+    .o-card{
+      padding:var(--s-7) var(--s-5) var(--s-7);
+      border-right:1px solid var(--gray-2);
+      transition:background .25s var(--ease);
+    }
+    .o-card:last-child{border-right:none}
+    .o-card:hover{background:var(--gray-1)}
+    .o-photo{
+      aspect-ratio:1;
+      background:var(--gray-1);
+      margin-bottom:var(--s-5);
+      overflow:hidden;
+      position:relative;
+      display:flex;align-items:flex-end;justify-content:center;
+    }
+    .o-photo img{
+      width:100%;height:100%;object-fit:cover;
+      filter:grayscale(1);
+      transition:filter .5s var(--ease);
+    }
+    .o-card:hover .o-photo img{filter:grayscale(0)}
+    .o-num{
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:var(--orange);
+      margin-bottom:10px;
+    }
+    .o-card h4{
+      font-size:18px;font-weight:700;
+      letter-spacing:-.01em;
+      text-transform:uppercase;
+      margin-bottom:6px;
+      line-height:1.1;
+    }
+    .o-role{
+      font-size:11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--gray-4);
+    }
+
+    /* ── STATS — minimal numbers row ────────────────── */
+    .stats-section{
+      background:var(--white);
+      padding:var(--s-10) 0;
+      border-top:1px solid var(--gray-2);
+    }
+    .stats-row{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:0;
+    }
+    .stat{
+      padding:32px 24px;
+      border-right:1px solid var(--gray-2);
+    }
+    .stat:last-child{border-right:none}
+    .stat-num{
+      font-family:var(--font);
+      font-size:clamp(64px,8vw,124px);
+      font-weight:700;
+      line-height:.85;
+      letter-spacing:-.04em;
+      color:var(--black);
+      margin-bottom:18px;
+      display:block;
+    }
+    .stat-num em{font-style:normal;color:var(--orange);font-size:.5em;vertical-align:top;line-height:1}
+    .stat-label{
+      font-size:11px;font-weight:700;
+      letter-spacing:.24em;text-transform:uppercase;
+      color:var(--gray-4);
+    }
+
+    @media(max-width:1024px){
+      .about-grid{grid-template-columns:1fr;gap:48px}
+      .events-grid{grid-template-columns:1fr;border-top:none}
+      .ev-card{border-right:none;border-bottom:1px solid rgba(255,255,255,.12)}
+      .officers-row{grid-template-columns:1fr 1fr}
+      .o-card:nth-child(2n){border-right:none}
+      .o-card:nth-child(-n+2){border-bottom:1px solid var(--gray-2)}
+      .stats-row{grid-template-columns:1fr 1fr}
+      .stat:nth-child(2n){border-right:none}
+      .stat:nth-child(-n+2){border-bottom:1px solid var(--gray-2)}
+    }
+    @media(max-width:768px){
+      .hero h1{font-size:clamp(48px,15vw,84px)}
+      .officers-row{grid-template-columns:1fr}
+      .o-card{border-right:none;border-bottom:1px solid var(--gray-2)}
+      .o-card:last-child{border-bottom:none}
+      .stats-row{grid-template-columns:1fr}
+      .stat{border-right:none;border-bottom:1px solid var(--gray-2)}
+      .stat:last-child{border-bottom:none}
+      .hero-strip-inner{flex-direction:column;align-items:flex-start;gap:20px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── TOPBAR ─── -->
+  <nav class="topbar topbar-on-dark" id="navbar">
+    <div class="container">
+      <a href="index.html" class="topbar-brand">
+        <strong>SNSU</strong>
+        <span class="topbar-brand-sep"></span>
+        <em>Computer Society</em>
+        <span class="topbar-brand-mark">CS</span>
+      </a>
+      <div class="topbar-links" id="navLinks">
+        <a href="index.html" class="active">Home</a>
+        <a href="events.html">Events</a>
+        <a href="officers.html">Officers</a>
+        <a href="about.html">About</a>
+      </div>
+      <button class="topbar-burger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1800&q=80" alt="">
+    </div>
+
+    <div class="container">
+      <p class="hero-eyebrow reveal">Surigao del Norte State University · 2025–2026</p>
+      <h1 class="reveal">Computer<br><em>Society</em></h1>
+      <p class="hero-tagline reveal">Bachelor of Science in Computer Science.</p>
+      <p class="hero-quote reveal">"A community of student innovators — building, learning, and shaping the future of technology, one project at a time."</p>
+      <div class="hero-actions reveal">
+        <a href="about.html" class="btn btn-orange">
+          Discover the Org
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="events.html" class="btn btn-light">Upcoming Events</a>
+      </div>
+    </div>
+
+    <div class="hero-strip">
+      <div class="container">
+        <div class="hero-strip-inner">
+          <p class="hero-strip-label">Affiliations</p>
+          <div class="hero-strip-logos" aria-label="Partner logos">
+            <span class="hero-strip-logo" title="SNSU">SNSU</span>
+            <span class="hero-strip-logo" title="CCIS">CCIS</span>
+            <span class="hero-strip-logo" title="ComSoc">CS</span>
+          </div>
+          <p class="hero-strip-tagline">Computer Society · 2025–2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ─── -->
+  <section class="section section-loose">
+    <div class="container">
+      <div class="about-grid">
+        <div class="reveal">
+          <p class="eyebrow">About</p>
+          <h2 class="h2">Building the future, <em>one line</em> at a time.</h2>
+        </div>
+
+        <div class="about-stack">
+          <div class="about-block reveal">
+            <div class="about-block-meta">
+              <span class="about-block-num">01 — Mission</span>
+            </div>
+            <h3>What we do.</h3>
+            <p>Cultivate a vibrant community of tech enthusiasts through hands-on learning, collaboration, and the empowerment of students with real-world skills.</p>
+          </div>
+
+          <div class="about-block reveal">
+            <div class="about-block-meta">
+              <span class="about-block-num">02 — Vision</span>
+            </div>
+            <h3>Where we're going.</h3>
+            <p>To be the leading student technology organization in the region, producing innovative leaders who drive positive change through technology.</p>
+          </div>
+
+          <div class="about-block reveal" style="border-top:none;padding-top:0">
+            <a href="about.html" class="link">
+              Read the full story
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EVENTS ─── -->
+  <section class="events-section">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow eyebrow-light">Events</p>
+        <h2 class="h2">What's <em>happening</em>.</h2>
+        <p class="body-lg">Workshops, competitions, and gatherings throughout the year — pushing the boundaries of what's possible.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="events-grid">
+        <article class="ev-card reveal">
+          <div class="ev-photo">
+            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=900&q=80" alt="Hackathon 2026">
+            <span class="ev-tag">Competition</span>
+          </div>
+          <p class="ev-date">June 15–17, 2026</p>
+          <h3>Hackathon 2026</h3>
+          <p>A 48-hour coding marathon where teams build innovative solutions to real-world challenges.</p>
+          <a href="events.html" class="ev-link">Learn more
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </article>
+
+        <article class="ev-card reveal">
+          <div class="ev-photo">
+            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=80" alt="Tech Summit">
+            <span class="ev-tag">Seminar</span>
+          </div>
+          <p class="ev-date">July 20, 2026</p>
+          <h3>Tech Summit</h3>
+          <p>An annual gathering of industry leaders and students sharing insights on emerging technologies.</p>
+          <a href="events.html" class="ev-link">Learn more
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </article>
+
+        <article class="ev-card reveal">
+          <div class="ev-photo">
+            <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=900&q=80" alt="CodeFest">
+            <span class="ev-tag">Workshop</span>
+          </div>
+          <p class="ev-date">August 22, 2026</p>
+          <h3>CodeFest</h3>
+          <p>Intensive workshop series covering web development, AI/ML, and cybersecurity tracks.</p>
+          <a href="events.html" class="ev-link">Learn more
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </article>
+      </div>
+
+      <div class="events-cta reveal">
+        <a href="events.html" class="btn btn-light">View all events</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── OFFICERS PREVIEW ─── -->
+  <section class="section section-loose">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Leadership</p>
+        <h2 class="h2">Meet our <em>officers</em>.</h2>
+        <p class="body-lg">Dedicated leaders driving the organization forward with passion, vision, and unwavering commitment.</p>
+      </div>
+
+      <div class="officers-row">
+        <div class="o-card reveal">
+          <div class="o-photo"><img src="https://placehold.co/600x600/F2F2F2/000000?text=+" alt="President"></div>
+          <p class="o-num">01</p>
+          <h4>[President Name]</h4>
+          <p class="o-role">President</p>
+        </div>
+        <div class="o-card reveal">
+          <div class="o-photo"><img src="https://placehold.co/600x600/F2F2F2/000000?text=+" alt="Vice President"></div>
+          <p class="o-num">02</p>
+          <h4>[Vice President Name]</h4>
+          <p class="o-role">Vice President</p>
+        </div>
+        <div class="o-card reveal">
+          <div class="o-photo"><img src="https://placehold.co/600x600/F2F2F2/000000?text=+" alt="Secretary"></div>
+          <p class="o-num">03</p>
+          <h4>[Secretary Name]</h4>
+          <p class="o-role">Secretary</p>
+        </div>
+        <div class="o-card reveal">
+          <div class="o-photo"><img src="https://placehold.co/600x600/F2F2F2/000000?text=+" alt="Treasurer"></div>
+          <p class="o-num">04</p>
+          <h4>[Treasurer Name]</h4>
+          <p class="o-role">Treasurer</p>
+        </div>
+      </div>
+
+      <div class="events-cta reveal" style="margin-top:48px">
+        <a href="officers.html" class="btn">
+          Meet the full team
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STATS ─── -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="section-head reveal" style="margin-bottom:48px">
+        <p class="eyebrow">Impact</p>
+        <h2 class="h2">By the <em>numbers</em>.</h2>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat reveal">
+          <span class="stat-num" data-target="200">0<em>+</em></span>
+          <p class="stat-label">Members</p>
+        </div>
+        <div class="stat reveal">
+          <span class="stat-num" data-target="50">0<em>+</em></span>
+          <p class="stat-label">Events Hosted</p>
+        </div>
+        <div class="stat reveal">
+          <span class="stat-num" data-target="25">0<em>+</em></span>
+          <p class="stat-label">Projects</p>
+        </div>
+        <div class="stat reveal">
+          <span class="stat-num" data-target="8">0</span>
+          <p class="stat-label">Years Strong</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-cta reveal">
+        <h2>Ready to <em>join us</em>? Be part of what's next.</h2>
+        <a href="#" class="btn btn-orange">
+          Get in touch
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="topbar-brand">
+            <strong>SNSU</strong>
+            <span class="topbar-brand-sep"></span>
+            <em>Computer Society</em>
+          </a>
+          <p>Empowering future tech leaders through innovation, education, and community at Surigao del Norte State University.</p>
+        </div>
+        <div>
+          <h4>Pages</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="officers.html">Officers</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="#">Membership</a></li>
+            <li><a href="#">Code of Conduct</a></li>
+            <li><a href="#">Sponsorship</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Connect</h4>
+          <ul class="footer-links">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Discord</a></li>
+            <li><a href="mailto:hello@snsucomsoc.org">Email us</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 SNSU Computer Society Organization</p>
+        <div class="footer-socials">
+          <a href="#">Facebook</a>
+          <a href="#">GitHub</a>
+          <a href="#">Discord</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
