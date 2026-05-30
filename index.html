@@ -304,8 +304,8 @@
       border-top:1px solid var(--gray-2);
     }
     .stats-row{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
+      display:flex;
+      flex-wrap:wrap;
       gap:0;
     }
     .stat{
@@ -561,20 +561,8 @@
 
       <div class="stats-row">
         <div class="stat reveal">
-          <span class="stat-num" data-target="200">0<em>+</em></span>
+          <span class="stat-num" data-target="280" data-suffix="">0</span>
           <p class="stat-label">Members</p>
-        </div>
-        <div class="stat reveal">
-          <span class="stat-num" data-target="50">0<em>+</em></span>
-          <p class="stat-label">Events Hosted</p>
-        </div>
-        <div class="stat reveal">
-          <span class="stat-num" data-target="25">0<em>+</em></span>
-          <p class="stat-label">Projects</p>
-        </div>
-        <div class="stat reveal">
-          <span class="stat-num" data-target="8">0</span>
-          <p class="stat-label">Years Strong</p>
         </div>
       </div>
     </div>
@@ -640,6 +628,8 @@
     </div>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
